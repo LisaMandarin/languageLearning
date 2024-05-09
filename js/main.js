@@ -1,36 +1,34 @@
-import { qs, toggleHint } from "./util.js";
+import { 
+  qs, 
+  toggleHint, 
+  clearContent, 
+  processLanguage 
+} from "./util.js";
+import { breakSentence } from "./breakSentence.js";
+import { translateSentence } from "./translate.js";
+import { lookUp } from "./lookUp.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-  // ----- Clear the textarea -----
-  const clearOriginalBtn = qs("#clearOriginalBtn");
-  const textOriginalArea = qs("#textOriginalArea");
-  clearOriginalBtn.addEventListener(
-    "click",
-    () => (textOriginalArea.textContent = "")
-  );
 
-  const clearListBtn = qs("#clearListBtn");
-  const sentenceListArea = qs("#sentenceListArea");
-  clearListBtn.addEventListener(
-    "click",
-    () => (sentenceListArea.textContent = "")
-  );
-
-  const clearTranslationBtn = qs("#clearTranslationBtn");
-  const translationArea = qs("#translationArea");
-  clearTranslationBtn.addEventListener(
-    "click",
-    () => (translationArea.textContent = "")
-  );
-
-  const clearNotesBtn = qs("#clearNotesBtn");
-  const notesArea = qs("#notesArea");
-  clearNotesBtn.addEventListener("click", () => (notesArea.textContent = ""));
-  // ----- End of clear the textarea -----
-
+document.addEventListener("DOMContentLoaded", () => {
+  const textOriginalElem = qs('#textOriginalArea');
+  const sentenceListElem = qs('#sentenceListArea');
+  const translationElem = qs('#translationArea');
+  const notesElem = qs('#notesArea');
 
   toggleHint("#originalQ", "#originalHint", "originalHint");
   toggleHint("#listQ", "#listHint", "listHint");
   toggleHint("#translationQ", "#translationHint", "translationHint");
   toggleHint("#notesQ", "#notesHint", "notesHint");
-});
+
+  clearContent('#clearOriginalBtn', textOriginalElem);
+  clearContent('#clearListBtn', sentenceListElem);
+  clearContent('#clearTranslationBtn', translationElem);
+  clearContent('#clearNotesBtn', notesElem);
+
+  processLanguage(textOriginalElem, sentenceListElem, '#breakBtn', breakSentence);
+  processLanguage(sentenceListElem, translationElem, '#translateBtn', translateSentence);
+  processLanguage(translationElem, notesElem, '#lookUpBtn', lookUp);
+})
+
+
+
