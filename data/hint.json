@@ -1,0 +1,6 @@
+{
+    "originalHint": "<ul>\n<li>\n原文限英文。</li>\n<li>\n單句長度不可超過10,000字母（含空格）</li>\n<li>\n總長度不可超過100句，也不可超過50,000字母（含空格）</li>\n</ul>\n",
+    "listHint": "<ul>\n<li>\n一次最多翻譯25句，請把不需要翻譯的句子刪除。</li>\n<li>\n總長度不可超過5,000字母（含空格）。</li>\n</ul>\n",
+    "translationHint": "<ul>\n<li>\n選取要查詢的單字或片語，按「查單詞」。</li>\n<li>\n查詢的相關資料會出現在下方筆記欄。</li>\n</ul>\n",
+    "notesHint": "<ul>\n<li>\n可手動增減筆記內容</li><li>\n句末shift + Enter：在單格筆記欄增加一行。</li>\n<li>\n文末Enter：新增一格筆記欄。</li>\n<li>\ndel鍵：刪除文字或筆記欄。</li>\n<li>\n筆記生成：把翻譯區域和筆記區域儲存成PDF檔。</li>\n</ul>\n"
+}
