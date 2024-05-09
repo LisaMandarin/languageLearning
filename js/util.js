@@ -1,4 +1,4 @@
-import { lookUp } from "./lookUp";
+import { displayLookUp } from "./lookUp";
 
 // ----- select element -----
 export function qs(selector) {
@@ -63,12 +63,12 @@ export function processLanguage(inputElem, outputElem, executeBtn, execution) {
   const executeBtnElem = qs(executeBtn);
   executeBtnElem.addEventListener('click', event => {
     
-    if (execution === lookUp) {
+    if (execution === displayLookUp) {
       var selection = document.getSelection().toString().trim();
       const checkboxChinese = qs('#chinese-meaning');
       const checkboxEnglish = qs('#english-meaning');
       const checkboxExample = qs('#example-sentence');
-      lookUp(event, inputElem, outputElem, selection, checkboxChinese, checkboxEnglish, checkboxExample);
+      displayLookUp(event, inputElem, outputElem, selection, checkboxChinese, checkboxEnglish, checkboxExample);
       } 
      else {
       execution(event, inputElem, outputElem,)

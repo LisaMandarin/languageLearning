@@ -1,4 +1,4 @@
-export function lookUp(event, inputElem, outputElem, selection, checkboxChinese, checkboxEnglish, checkboxExample) {
+export function displayLookUp(event, inputElem, outputElem, selection, checkboxChinese, checkboxEnglish, checkboxExample) {
     event.preventDefault(); // Stop the button from submitting
 
     let pass = checkCondition(selection, checkboxChinese, checkboxEnglish, checkboxExample)
@@ -34,3 +34,4 @@ function checkCondition(selection, checkboxChinese, checkboxEnglish, checkboxExa
     }
 }
 
+// async function 
