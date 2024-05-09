@@ -8,7 +8,6 @@ import { breakSentence } from "./breakSentence.js";
 import { translateSentence } from "./translate.js";
 import { lookUp } from "./lookUp.js";
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const textOriginalElem = qs('#textOriginalArea');
   const sentenceListElem = qs('#sentenceListArea');
@@ -28,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   processLanguage(textOriginalElem, sentenceListElem, '#breakBtn', breakSentence);
   processLanguage(sentenceListElem, translationElem, '#translateBtn', translateSentence);
   processLanguage(translationElem, notesElem, '#lookUpBtn', lookUp);
+
 })
 
 
