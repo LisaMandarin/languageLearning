@@ -1,12 +1,12 @@
 import OpenAI from "openai";
+const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
 export async function displayLookUp(event, inputElem, outputElem, selection, checkboxChinese, checkboxEnglish, checkboxExample) {
     event.preventDefault(); // Stop the button from submitting
-
-    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-    if (!apiKey) {
-        console.error("The api key is not defined in the environment.");
-    }
+    
+    // if (!apiKey) {
+        // console.error("The api key is not defined in the environment.");
+    // }
     const fullText = inputElem.innerText;
     let pass = checkCondition(selection, checkboxChinese, checkboxEnglish, checkboxExample)
     if (pass !== false) {
@@ -46,23 +46,43 @@ function checkCondition(selection, checkboxChinese, checkboxEnglish, checkboxExa
 }
 
 async function lookUp(selection, fullText, chinese, english, example) {
-    const instructions = `For the ${selection} provided from the ${fullText}, analyze and present the following details: the ${selection} itself followed by a colon, the part of speech of the ${selection}, abbreviated and enclosed in parentheses, ${chinese}, ${english}, ${example} using ${selection}, which is not derived from the ${fullText}.  Ensure each piece of information is listed on a separate line.`;
-    const openai = new OpenAI();
+    // const instructions = `For the ${selection} provided from the ${fullText}, analyze and present the following details: the ${selection} itself followed by a colon, the part of speech of the ${selection}, abbreviated and enclosed in parentheses, ${chinese}, ${english}, ${example} using ${selection}, which is not derived from the ${fullText}.  Ensure each piece of information is listed on a separate line.`;
+    const instructions = `For the ${selection} provided from the ${fullText}, show the following details: the ${selection}, its part of speech, ${chinese}, ${english}, ${example} using ${selection}, which is not derived from the ${fullText}.`;
+    const openai = new OpenAI({
+        apiKey, 
+        dangerouslyAllowBrowser: true
+    });
+    
+    // console.log(openai);
 
     try {
         const completion = await openai.chat.completions.create({
             messages: [
                 {"role": "system", "content": "You are a helpful English language teacher."},
                 {"role": "user", "content": "I fly a plane.  For 'fly' in this sentence, analyze this sentence and present the following details: word, part of speech, traditional Chinese, English definition, example sentence"},
-                {"role": "assistant", "content": 'fly: (v.)\n駕駛飛機\nmove through the air under control\nThe pilot has flown for years.'},
+                {"role": "assistant", "content": 'fly: (v.)<br>駕駛飛機<br>move through the air under control<br>The pilot has flown for years.'},
                 {"role": "user", "content": instructions }
             ],
             model: "gpt-3.5-turbo",
             temperature: 1.5,
         });
-        console.log(completion.choices([0].message.content));
+
+        if (completion && completion.choices && completion.choices.length > 0) {
+            const message = completion.choices[0].message;
+
+            if (message &&  message.content) {
+                return message.content;
+            } else {
+                console.error("No message content found in completion response.");
+                return '';
+            }
+        }else {
+            console.error("No choices found in completion response.");
+            return '';
+        }
     } catch (error) {
         console.error("Failed to fetch the completion: ", error);
+        return '';
     }
     
 }
