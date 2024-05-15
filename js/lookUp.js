@@ -3,6 +3,10 @@ import OpenAI from "openai";
 export async function displayLookUp(event, inputElem, outputElem, selection, checkboxChinese, checkboxEnglish, checkboxExample) {
     event.preventDefault(); // Stop the button from submitting
 
+    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+    if (!apiKey) {
+        console.error("The api key is not defined in the environment.");
+    }
     const fullText = inputElem.innerText;
     let pass = checkCondition(selection, checkboxChinese, checkboxEnglish, checkboxExample)
     if (pass !== false) {
@@ -12,9 +16,9 @@ export async function displayLookUp(event, inputElem, outputElem, selection, che
         divElem.setAttribute('contenteditable', 'true');
 
         // populate notes
-        const chinese = '';
-        const english = '';
-        const example = '';
+        let chinese = '';
+        let english = '';
+        let example = '';
         if (checkboxChinese.checked) {
             chinese = 'the Traditional Chinese translation';
             };
